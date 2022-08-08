@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>qadmin</artifactId>
+    <groupId>io.fluent</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>qadmin-server</artifactId>
+
+  <properties>
+    <maven.compiler.source>18</maven.compiler.source>
+    <maven.compiler.target>18</maven.compiler.target>
+    <erupt.version>1.10.10</erupt.version>
+  </properties>
+  <dependencies>
+    <!--用户权限管理-->
+    <dependency>
+      <groupId>xyz.erupt</groupId>
+      <artifactId>erupt-upms</artifactId>
+      <version>${erupt.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>io.netty</groupId>
+          <artifactId>netty-all</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-compress</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.pdfbox</groupId>
+          <artifactId>pdfbox</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.santuario</groupId>
+          <artifactId>xmlsec</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.santuario/xmlsec -->
+    <dependency>
+      <groupId>org.apache.santuario</groupId>
+      <artifactId>xmlsec</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+    <dependency>
+      <groupId>org.apache.pdfbox</groupId>
+      <artifactId>pdfbox</artifactId>
+      <version>2.0.26</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+      <version>4.1.79.Final</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-compress -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-compress</artifactId>
+      <version>1.21</version>
+    </dependency>
+
+    <!--接口数据安全-->
+    <dependency>
+      <groupId>xyz.erupt</groupId>
+      <artifactId>erupt-security</artifactId>
+      <version>${erupt.version}</version>
+    </dependency>
+    <!--后台WEB界面-->
+    <dependency>
+      <groupId>xyz.erupt</groupId>
+      <artifactId>erupt-web</artifactId>
+      <version>${erupt.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.13.3</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.4.0</version>
+    </dependency>
+  </dependencies>
+</project>
