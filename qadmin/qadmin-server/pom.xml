@@ -22,51 +22,33 @@
       <groupId>xyz.erupt</groupId>
       <artifactId>erupt-upms</artifactId>
       <version>${erupt.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>io.netty</groupId>
-          <artifactId>netty-all</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.commons</groupId>
-          <artifactId>commons-compress</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.pdfbox</groupId>
-          <artifactId>pdfbox</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.santuario</groupId>
-          <artifactId>xmlsec</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.santuario/xmlsec -->
-    <dependency>
-      <groupId>org.apache.santuario</groupId>
-      <artifactId>xmlsec</artifactId>
-      <version>3.0.0</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.apache.santuario</groupId>-->
+<!--      <artifactId>xmlsec</artifactId>-->
+<!--      <version>3.0.0</version>-->
+<!--    </dependency>-->
 
-    <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
-    <dependency>
-      <groupId>org.apache.pdfbox</groupId>
-      <artifactId>pdfbox</artifactId>
-      <version>2.0.26</version>
-    </dependency>
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.apache.pdfbox</groupId>-->
+<!--      <artifactId>pdfbox</artifactId>-->
+<!--      <version>2.0.26</version>-->
+<!--    </dependency>-->
 
-    <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-all</artifactId>
-      <version>4.1.79.Final</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-compress -->
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-compress</artifactId>
-      <version>1.21</version>
-    </dependency>
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/io.netty/netty-all &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>io.netty</groupId>-->
+<!--      <artifactId>netty-all</artifactId>-->
+<!--      <version>4.1.79.Final</version>-->
+<!--    </dependency>-->
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.commons/commons-compress &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.apache.commons</groupId>-->
+<!--      <artifactId>commons-compress</artifactId>-->
+<!--      <version>1.21</version>-->
+<!--    </dependency>-->
 
     <!--接口数据安全-->
     <dependency>
@@ -100,4 +82,20 @@
       <version>42.4.0</version>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals><goal>repackage</goal></goals>
+          </execution>
+        </executions>
+<!--        <configuration>-->
+<!--          <mainClass>io.fluent.qboxserver.QBoxApp</mainClass>-->
+<!--        </configuration>-->
+      </plugin>
+    </plugins>
+  </build>
 </project>

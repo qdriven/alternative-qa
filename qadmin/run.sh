@@ -1,0 +1,1 @@
+java -jar qadmin-server/target/qadmin-server-1.0-SNAPSHOT.jar
