@@ -5,11 +5,11 @@ window.eruptSiteConfig = {
     //附件地址，一般情况下不需要指定，如果自定义对象存储空间，则需在此指定附件资源访问地址
     fileDomain: "",
     //标题
-    title: "ChangedItem",
+    title: "测试管理系统",
     //描述
-    desc: "通用数据管理框架",
+    desc: "测试管理系统",
     //高德地图api key,使用地图组件须指定此属性，amapKey获取地址：https://lbs.amap.com
-    amapKey: "6ba79a8db11b51aeb1176bd4cfa049f4",
+    // amapKey: "6ba79a8db11b51aeb1176bd4cfa049f4",
     //logo路径
     logoPath: "erupt.svg",
     //logo文字

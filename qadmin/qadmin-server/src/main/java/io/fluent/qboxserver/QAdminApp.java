@@ -9,8 +9,8 @@ import xyz.erupt.core.annotation.EruptScan;
 @SpringBootApplication
 @EntityScan
 @EruptScan
-public class QBoxApp {
+public class QAdminApp {
     public static void main(String[] args) {
-        SpringApplication.run(QBoxApp.class);
+        SpringApplication.run(QAdminApp.class);
     }
 }

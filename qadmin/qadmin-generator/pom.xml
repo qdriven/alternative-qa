@@ -10,7 +10,7 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>admin-generator</artifactId>
+  <artifactId>qadmin-generator</artifactId>
   <name>qadmin-generator</name>
   <description>code generator</description>
   <properties>
