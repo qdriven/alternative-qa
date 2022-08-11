@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "apis")
 @Erupt(
-  name = "接口列表",power = @Power(importable = true, export = true)
+  name = "接口列表", power = @Power(importable = true, export = true)
 )
 @PreDataProxy(value = ApiDataProxy.class)
 public class Api extends MetaModel {
@@ -69,7 +69,13 @@ public class Api extends MetaModel {
     views = @View(title = "接口类型"),
     edit = @Edit(title = "接口类型")
   )
-  private String type;
+  private String type ="API";
 
+  @EruptField(
+    views = @View(title = "api生命周期状态"),
+    edit = @Edit(title = "api生命周期状态")
+    //default is true, and only updated by import
+  )
+  private String status ="NEW";
 
 }
