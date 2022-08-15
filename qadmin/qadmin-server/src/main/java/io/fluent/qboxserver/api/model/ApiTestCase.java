@@ -58,7 +58,8 @@ public class ApiTestCase extends MetaModel {
 
   @EruptField(
     views = @View(title = "期望结果", type = ViewType.CODE),
-    edit = @Edit(title = "期望结果", type = EditType.CODE_EDITOR, codeEditType = @CodeEditorType(language = "json"))
+    edit = @Edit(title = "期望结果", type = EditType.CODE_EDITOR,
+      codeEditType = @CodeEditorType(language = "json"))
   )
   private String expectedResult;
 
