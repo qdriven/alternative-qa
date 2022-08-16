@@ -2,7 +2,6 @@ package io.fluent.qboxserver.sync.proxy;
 
 import cn.hutool.core.bean.BeanUtil;
 import io.fluent.qboxserver.sync.service.SyncService;
-import xyz.erupt.core.prop.EruptAppProp;
 import xyz.erupt.core.prop.EruptProp;
 import xyz.erupt.core.util.EruptSpringUtil;
 import xyz.erupt.jpa.model.MetaDataProxy;

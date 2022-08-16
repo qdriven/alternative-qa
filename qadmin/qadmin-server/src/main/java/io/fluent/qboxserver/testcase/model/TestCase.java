@@ -119,4 +119,6 @@ public class TestCase extends MetaModelCreateVo {
   )
   private String expectedResult;
 
+  //Test Case Status
+  private String status;
 }
