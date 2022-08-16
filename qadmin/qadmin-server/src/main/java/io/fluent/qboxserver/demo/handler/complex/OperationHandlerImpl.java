@@ -21,6 +21,9 @@ public class OperationHandlerImpl implements OperationHandler<Complex, ComplexOp
 
     @Override
     public String exec(List<Complex> data, ComplexOperator complexOperator, String[] param) {
+      System.out.println(data);
+      System.out.println(complexOperator);
+      System.out.println(param);
         throw new EruptApiErrorTip(new EruptApiModel(EruptApiModel.Status.WARNING,
                 "自定义报错提示：" + request.getServletPath(), EruptApiModel.PromptWay.NOTIFY));
     }

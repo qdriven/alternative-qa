@@ -2,45 +2,48 @@ package io.fluent.qboxserver.testcase.model;
 
 import javax.persistence.*;
 
+import io.fluent.qboxserver.product.model.ProductMeta;
 import lombok.Data;
 import xyz.erupt.annotation.*;
-import xyz.erupt.annotation.sub_erupt.*;
 import xyz.erupt.annotation.sub_field.*;
 import xyz.erupt.annotation.sub_field.sub_edit.*;
-import xyz.erupt.upms.model.base.HyperModel;
+import xyz.erupt.jpa.model.MetaModelCreateVo;
 
 
-@Erupt(name = "测试用例管理", power = @Power(importable = true, export = true))
+
+@Erupt(name = "测试用例管理")
+//  ,power = @Power(importable = true, export = true))
 @Table(name = "test_cases")
 @Entity
 @Data
-public class TestCase extends HyperModel {
-
+public class TestCase extends MetaModelCreateVo {
+  @ManyToOne
+  @JoinColumn(name = "product_id")
   @EruptField(
-    views = @View(
-      title = "产品"
-    ),
+    views = @View(title = "产品名称",column = "details"),
     edit = @Edit(
-      title = "产品",
-      type = EditType.INPUT, search = @Search, notNull = true,
-      inputType = @InputType
-    )
+      search = @Search,
+      title = "产品选择",
+      type = EditType.REFERENCE_TREE,
+      desc = "动态获取产品",
+      referenceTreeType = @ReferenceTreeType(id = "id", label = "name",
+        pid = "parent.id"))
   )
-  private String product;
+  private ProductMeta product;
 
+  @ManyToOne
+  @JoinColumn(name = "module_id")
   @EruptField(
-    views = @View(
-      title = "模块名称"
-    ),
-    edit = @Edit(
-      title = "模块名称",
-      type = EditType.INPUT, search = @Search, notNull = true,
-      inputType = @InputType
-    )
+    views = @View(title = "模块名称",column = "details"),
+    edit = @Edit(title = "模块选择", search = @Search, type = EditType.REFERENCE_TREE,
+      referenceTreeType = @ReferenceTreeType(id = "id", label = "name",
+        dependField = "product",
+        dependColumn = "parent.id"
+      ))
   )
-  private String moduleName;
+  private ProductMeta module;
 
-  @EruptField(
+   @EruptField(
     views = @View(
       title = "功能"
     ),

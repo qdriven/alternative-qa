@@ -2,8 +2,10 @@ package io.fluent.qboxserver.product.model;
 
 import javax.persistence.*;
 
+import io.fluent.qboxserver.common.handler.SqlTagFetchHandler;
 import lombok.Data;
 import xyz.erupt.annotation.*;
+import xyz.erupt.annotation.fun.TagsFetchHandler;
 import xyz.erupt.annotation.sub_erupt.*;
 import xyz.erupt.annotation.sub_field.*;
 import xyz.erupt.annotation.sub_field.sub_edit.*;
@@ -35,12 +37,12 @@ public class MasterData extends HyperModel {
     views = @View(title = "种类代码"),
     edit = @Edit(
       search = @Search,
-      title = "获取可选类型",
-      type = EditType.CHOICE,
-      desc = "动态获取可选类型",
-      choiceType = @ChoiceType(
-        fetchHandler = SqlChoiceFetchHandler.class,
-        fetchHandlerParams = "select distinct category_code from master_data where is_valid =true"
+      title = "获取可选种类",
+      type = EditType.TAGS,
+      desc = "动态获取可选种类",
+      tagsType = @TagsType(
+        fetchHandler = SqlTagFetchHandler.class,
+        fetchHandlerParams = "select distinct category_code from master_data where is_valid=true"
       ))
   )
   private String categoryCode;

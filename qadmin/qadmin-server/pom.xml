@@ -15,6 +15,7 @@
     <maven.compiler.source>18</maven.compiler.source>
     <maven.compiler.target>18</maven.compiler.target>
     <erupt.version>1.10.10</erupt.version>
+    <javaxcel.version>0.8.2</javaxcel.version>
   </properties>
   <dependencies>
     <!--用户权限管理-->
@@ -96,7 +97,11 @@
       <artifactId>qadmin-generator</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
-
+    <dependency>
+      <groupId>com.github.javaxcel</groupId>
+      <artifactId>javaxcel-core</artifactId>
+      <version>${javaxcel.version}</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
