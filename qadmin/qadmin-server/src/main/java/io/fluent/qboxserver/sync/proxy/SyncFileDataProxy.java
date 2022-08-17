@@ -30,5 +30,10 @@ public class SyncFileDataProxy extends MetaDataProxy {
       String excelPath = eruptProp.getUploadPath()+BeanUtil.getProperty(metaModel,"attachment");
       syncService.syncTestCases(excelPath);
     }
+    if(BeanUtil.getProperty(metaModel,"usage").toString()
+      .equalsIgnoreCase("API")){
+      String excelPath = eruptProp.getUploadPath()+BeanUtil.getProperty(metaModel,"attachment");
+      syncService.syncRemoteService(excelPath);
+    }
   }
 }
