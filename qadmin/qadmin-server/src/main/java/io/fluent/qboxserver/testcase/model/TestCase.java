@@ -7,41 +7,39 @@ import lombok.Data;
 import xyz.erupt.annotation.*;
 import xyz.erupt.annotation.sub_field.*;
 import xyz.erupt.annotation.sub_field.sub_edit.*;
-import xyz.erupt.jpa.model.MetaModelCreateVo;
-
+import xyz.erupt.toolkit.handler.SqlChoiceFetchHandler;
+import xyz.erupt.upms.model.base.HyperModel;
 
 
 @Erupt(name = "测试用例管理")
-//  ,power = @Power(importable = true, export = true))
 @Table(name = "test_cases")
 @Entity
 @Data
-public class TestCase extends MetaModelCreateVo {
-  @ManyToOne
-  @JoinColumn(name = "product_id")
+public class TestCase extends HyperModel {
+
   @EruptField(
-    views = @View(title = "产品名称",column = "details"),
+    views = @View(title = "产品名称"),
     edit = @Edit(
       search = @Search,
       title = "产品选择",
-      type = EditType.REFERENCE_TREE,
+      type = EditType.CHOICE,
       desc = "动态获取产品",
-      referenceTreeType = @ReferenceTreeType(id = "id", label = "name",
-        pid = "parent.id"))
+      choiceType = @ChoiceType(
+          fetchHandler = SqlChoiceFetchHandler.class,
+          fetchHandlerParams = "select id,name from product_meta where is_valid=true and parent_id is null"
+        ))
   )
-  private ProductMeta product;
+  private Long productId;
 
-  @ManyToOne
-  @JoinColumn(name = "module_id")
   @EruptField(
-    views = @View(title = "模块名称",column = "details"),
-    edit = @Edit(title = "模块选择", search = @Search, type = EditType.REFERENCE_TREE,
-      referenceTreeType = @ReferenceTreeType(id = "id", label = "name",
-        dependField = "product",
-        dependColumn = "parent.id"
-      ))
-  )
-  private ProductMeta module;
+    views = @View(title = "模块名称"),
+    edit = @Edit(title = "模块选择", search = @Search, type = EditType.CHOICE,
+      choiceType = @ChoiceType(
+        fetchHandler = SqlChoiceFetchHandler.class,
+        fetchHandlerParams = "select id,name from product_meta where parent_id in (select id from product_meta where parent_id is null and is_valid = true)"
+      )
+  ))
+  private Long moduleId;
 
    @EruptField(
     views = @View(
@@ -119,6 +117,6 @@ public class TestCase extends MetaModelCreateVo {
   )
   private String expectedResult;
 
-  //Test Case Status
-  private String status;
+//  //Test Case Status
+//  private String status;
 }

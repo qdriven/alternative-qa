@@ -41,13 +41,13 @@ public class SyncService {
       TestCase tc = BeanUtil.toBean(testCase,TestCase.class);
       ProductMeta productMeta = productMetaRepo.findProductMetaByName(testCase.getProductName());
       if(productMeta!=null){
-        tc.setProduct(productMeta);
+        tc.setProductId(productMeta.getId());
         ProductMeta moduleMeta = productMetaRepo.findProductMetaByName(testCase.getModuleName());
         if(moduleMeta!=null){
-          tc.setModule(moduleMeta);
+          tc.setModuleId(moduleMeta.getId());
         }else{
           ProductMeta newModule = createNewModule(testCase, productMeta);
-          tc.setModule(newModule);
+          tc.setModuleId(newModule.getId());
         }
       }else{
         ProductMeta pm = new ProductMeta();
@@ -55,9 +55,9 @@ public class SyncService {
         pm.setDetails(testCase.getProductName());
         pm.setMetaType("产品");
         productMetaRepo.save(pm);
-        tc.setProduct(pm);
+        tc.setProductId(pm.getId());
         ProductMeta newModule = createNewModule(testCase, pm);
-        tc.setModule(newModule);
+        tc.setModuleId(newModule.getId());
       }
       testCaseRepo.save(tc);
     }

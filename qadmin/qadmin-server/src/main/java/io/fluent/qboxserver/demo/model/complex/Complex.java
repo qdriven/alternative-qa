@@ -93,17 +93,17 @@ public class Complex extends BaseModel {
     )
     private TreeView tree;
 
-//    @ManyToOne
-//    @JoinColumn
-//    @EruptField(
-//            views = {
-//                    @View(title = "多对一表格", column = "title"),
-//            },
-//            edit = @Edit(title = "多对一表格", type = EditType.REFERENCE_TABLE, search = @Search,
-//                    referenceTableType = @ReferenceTableType(label = "title")
-//            )
-//    )
-//    private Article article;
+    @ManyToOne
+    @JoinColumn
+    @EruptField(
+            views = {
+                    @View(title = "多对一表格", column = "title"),
+            },
+            edit = @Edit(title = "多对一表格", type = EditType.REFERENCE_TABLE, search = @Search,
+                    referenceTableType = @ReferenceTableType(label = "title")
+            )
+    )
+    private Article article;
 
 
   @Lob
@@ -121,24 +121,24 @@ public class Complex extends BaseModel {
     )
     private Set<ComplexTab> complexTab;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "e_complex_article",
-//            joinColumns = @JoinColumn(name = "complex_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "article_id", referencedColumnName = "id"))
-//    @EruptField(
-//            edit = @Edit(title = "关联多篇文章", type = EditType.TAB_TABLE_REFER,
-//                    referenceTableType = @ReferenceTableType(label = "title"))
-//    )
-//    private Set<Article> articleTab;
+    @ManyToMany
+    @JoinTable(
+            name = "e_complex_article",
+            joinColumns = @JoinColumn(name = "complex_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "article_id", referencedColumnName = "id"))
+    @EruptField(
+            edit = @Edit(title = "关联多篇文章", type = EditType.TAB_TABLE_REFER,
+                    referenceTableType = @ReferenceTableType(label = "title"))
+    )
+    private Set<Article> articleTab;
 
     public String getChoice() {
         return choice;
     }
 
-//    public Article getArticle() {
-//        return article;
-//    }
+    public Article getArticle() {
+        return article;
+    }
 
     public String getCode() {
         return code;
