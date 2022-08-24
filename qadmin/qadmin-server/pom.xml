@@ -113,6 +113,11 @@
       <artifactId>javaxcel-core</artifactId>
       <version>${javaxcel.version}</version>
     </dependency>
+    <dependency>
+      <groupId>xyz.erupt</groupId>
+      <artifactId>erupt-job</artifactId>
+      <version>${erupt.version}</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

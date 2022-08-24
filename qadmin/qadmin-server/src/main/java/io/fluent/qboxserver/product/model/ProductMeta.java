@@ -1,22 +1,15 @@
 package io.fluent.qboxserver.product.model;
 
-
 import javax.persistence.*;
 
 import cn.hutool.core.lang.UUID;
-import io.fluent.qboxserver.demo.model.TreeView;
+import io.fluent.qboxserver.common.model.StatusMetaVo;
 import lombok.Data;
-
 import xyz.erupt.annotation.*;
 import xyz.erupt.annotation.sub_erupt.*;
 import xyz.erupt.annotation.sub_field.*;
 import xyz.erupt.annotation.sub_field.sub_edit.*;
-import xyz.erupt.jpa.model.MetaModelCreateVo;
-import xyz.erupt.jpa.model.MetaModelUpdateVo;
-import xyz.erupt.jpa.model.MetaModelVo;
 import xyz.erupt.toolkit.handler.SqlChoiceFetchHandler;
-import xyz.erupt.upms.model.base.HyperModel;
-
 
 @Erupt(name = "产品元数据",
   power = @Power(importable = true, export = true),
@@ -24,7 +17,7 @@ import xyz.erupt.upms.model.base.HyperModel;
 @Entity
 @Table(name = "product_meta")
 @Data
-public class ProductMeta extends MetaModelVo {
+public class ProductMeta extends StatusMetaVo {
 
   @EruptField(
     views = @View(
@@ -52,7 +45,7 @@ public class ProductMeta extends MetaModelVo {
   private String details;
 
   @EruptField(
-    views = @View(title = "数据类型"),
+    views = @View(title = "产品类型"),
     edit = @Edit(
       search = @Search,
       title = "获取可选类型",
@@ -60,7 +53,7 @@ public class ProductMeta extends MetaModelVo {
       desc = "动态获取可选类型",
       choiceType = @ChoiceType(
         fetchHandler = SqlChoiceFetchHandler.class,
-        fetchHandlerParams = "select id,name from master_data where category_code='PRODUCT'"
+        fetchHandlerParams = "select id,name from master_data where category_code in ('PRODUCT','MODULE')"
       ))
   )
   private String metaType;
@@ -75,20 +68,9 @@ public class ProductMeta extends MetaModelVo {
   )
   private ProductMeta parent;
 
-  @EruptField(
-    views = @View(
-      title = "是否可用"
-    ),
-    edit = @Edit(
-      title = "是否可用",
-      type = EditType.BOOLEAN, search = @Search, notNull = true,
-      boolType = @BoolType
-    )
-  )
-  private Boolean isValid = true;
 
   @EruptField(
-    views = @View(show = false,title = "uid")
+    views = @View(show = false, title = "uid")
   )
   private String uId = UUID.fastUUID().toString();
 }

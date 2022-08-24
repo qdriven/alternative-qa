@@ -6,6 +6,7 @@ import io.fluent.qboxserver.demo.model.complex.Complex;
 import io.fluent.qboxserver.testcase.model.TestTask;
 import org.junit.jupiter.api.Test;
 import xyz.erupt.core.config.GsonFactory;
+import xyz.erupt.job.model.EruptJob;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,5 +32,8 @@ class ProductMetaTest {
 //      dbccb06d-3db4-48d8-a3b1-89769ea118e8
 //      5912ed81-a6a7-4da8-8408-b434f64d9af3
     }
+    String jStr="{\"name\":\"test\",\"cron\":\"test\",\"handler\":\"io.fluent.qboxserver.sync.handler.PythonScriptJobHandler\",\"status\":true}";
+    EruptJob job = this.gson.fromJson(jStr, EruptJob.class);
+    System.out.println(job);
   }
 }

@@ -34,7 +34,7 @@ public class SyncFile extends MetaModelVo {
       desc = "动态获取可选类型",
       choiceType = @ChoiceType(
         fetchHandler = SqlChoiceFetchHandler.class,
-        fetchHandlerParams = "select distinct name from master_data where category_code='UPLOAD_FILE_USAGE' and is_valid=true"
+        fetchHandlerParams = "select distinct code from master_data where category_code='UPLOAD_FILE_USAGE' and is_valid=true"
       ))
   )
   private String usage;

@@ -1,6 +1,7 @@
 package io.fluent.qboxserver.sync.service;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import io.fluent.qboxserver.api.model.RemoteService;
 import io.fluent.qboxserver.api.repo.RemoteServiceRepo;
 import io.fluent.qboxserver.common.data.AuditDataEnhancer;
@@ -13,10 +14,11 @@ import io.fluent.qboxserver.testcase.model.TestCase;
 import io.fluent.qboxserver.testcase.repo.TestCaseRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import xyz.erupt.core.prop.EruptProp;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Locale;
+
 
 @Service
 public class SyncService {
@@ -30,26 +32,29 @@ public class SyncService {
 
   @Resource
   private RemoteServiceRepo remoteServiceRepo;
+  @Resource
+  private EruptProp eruptProp;
 
   @Transactional
-  public void syncTestCases(String excelPath){
+  public void syncTestCases(String fileName) {
+    String excelPath = eruptProp.getUploadPath() + fileName;
     List<TestCaseExcelModel> testCases = XlsX.create().getProvider().read(
-      excelPath, TestCaseExcelModel.class,null
+      excelPath, TestCaseExcelModel.class, null
     );
 
     for (TestCaseExcelModel testCase : testCases) {
-      TestCase tc = BeanUtil.toBean(testCase,TestCase.class);
+      TestCase tc = BeanUtil.toBean(testCase, TestCase.class);
       ProductMeta productMeta = productMetaRepo.findProductMetaByName(testCase.getProductName());
-      if(productMeta!=null){
+      if (productMeta != null) {
         tc.setProductId(productMeta.getId());
         ProductMeta moduleMeta = productMetaRepo.findProductMetaByName(testCase.getModuleName());
-        if(moduleMeta!=null){
+        if (moduleMeta != null) {
           tc.setModuleId(moduleMeta.getId());
-        }else{
+        } else {
           ProductMeta newModule = createNewModule(testCase, productMeta);
           tc.setModuleId(newModule.getId());
         }
-      }else{
+      } else {
         ProductMeta pm = new ProductMeta();
         pm.setName(testCase.getProductName());
         pm.setDetails(testCase.getProductName());
@@ -75,26 +80,45 @@ public class SyncService {
 
 
   @Transactional
-  public void syncRemoteService(String excelPath){
-    List<RemoteServiceExcelModel> services = XlsX.readObjects(excelPath,RemoteServiceExcelModel.class);
+  public void syncRemoteService(String fileName) {
+    String excelPath = eruptProp.getUploadPath() + fileName;
+    List<RemoteServiceExcelModel> services = XlsX.readObjects(excelPath, RemoteServiceExcelModel.class);
     for (RemoteServiceExcelModel service : services) {
-      var rs = new RemoteService();
+
       ProductMeta meta = productMetaRepo.findProductMetaByName(service.getProduct().toUpperCase());
-      if(meta==null) throw new RuntimeException("product %s doesn't exist,please check it".formatted(service.getProduct()));
+      if (meta == null)
+        throw new RuntimeException("product %s doesn't exist,please check it".formatted(service.getProduct()));
+      RemoteService rs = remoteServiceRepo.findRemoteServiceByEndpointAndServiceMethod(
+        service.getUri(), service.getMethod()
+      );
+      if (rs == null) rs = new RemoteService();
       rs.setName(service.getMethod());
       rs.setModuleName(service.getService());
       rs.setEndpoint(service.getUri());
       rs.setProductId(meta.getId());
       rs.setServiceName(service.getService());
-      String apiType = "vRPC";
-      if (!service.getService().isEmpty() && service.getService().toLowerCase(Locale.ROOT).endsWith("api")) {
-          apiType = "API";
-      }
-      rs.setType(apiType);
+      setServiceType(service, rs);
+
       rs.setServiceMethod(service.getMethod());
       rs.setHttpMethod(service.getHttpMethod());
       auditDataEnhancer.enhanceTimeAndUserAuditData(rs);
+      //Todo: add to API history
       remoteServiceRepo.save(rs);
     }
   }
+
+  private static void setServiceType(RemoteServiceExcelModel service, RemoteService rs) {
+    if (StrUtil.isBlank(service.getType())) {
+      if (service.getService().endsWith("Api")) {
+        rs.setType("API");
+      } else {
+        rs.setType("VRPC");
+      }
+    } else {
+      rs.setType(service.getType());
+    }
+  }
+
+
+  //TODO: sync module name in async way
 }

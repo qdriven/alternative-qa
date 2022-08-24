@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RemoteServiceRepo extends JpaRepository<RemoteService, Long>, JpaSpecificationExecutor<Long> {
+
+  public RemoteService findRemoteServiceByEndpointAndServiceMethod(String endpoint,String serviceMethod);
 }

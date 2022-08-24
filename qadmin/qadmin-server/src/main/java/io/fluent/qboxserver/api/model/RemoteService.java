@@ -107,7 +107,7 @@ public class RemoteService extends MetaModel {
 
   @EruptField(
     views = @View(title = "接口类型"),
-    edit = @Edit(title = "接口类型")
+    edit = @Edit(title = "接口类型",search = @Search(vague = true))
   )
   private String type = "API";
 

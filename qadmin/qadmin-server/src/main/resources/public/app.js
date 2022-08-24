@@ -13,7 +13,7 @@ window.eruptSiteConfig = {
     //logo路径
     logoPath: "erupt.svg",
     //logo文字
-    logoText: "nothing",
+    logoText: "测试工作台",
     //是否开启路由复用
     routerReuse: true,
 };

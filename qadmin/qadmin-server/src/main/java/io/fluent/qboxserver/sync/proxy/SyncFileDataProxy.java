@@ -25,15 +25,11 @@ public class SyncFileDataProxy extends MetaDataProxy {
   public void afterAdd(MetaModel metaModel) {
     System.out.println("after add something");
     super.afterAdd(metaModel);
-    if(BeanUtil.getProperty(metaModel,"usage").toString()
-      .equalsIgnoreCase("TestCase")){
-      String excelPath = eruptProp.getUploadPath()+BeanUtil.getProperty(metaModel,"attachment");
-      syncService.syncTestCases(excelPath);
-    }
-    if(BeanUtil.getProperty(metaModel,"usage").toString()
-      .equalsIgnoreCase("API")){
-      String excelPath = eruptProp.getUploadPath()+BeanUtil.getProperty(metaModel,"attachment");
-      syncService.syncRemoteService(excelPath);
+    switch (BeanUtil.getProperty(metaModel,"usage").toString()){
+      case "TestCase":syncService.syncTestCases(BeanUtil.getProperty(metaModel,"attachment"));
+      case "API": syncService.syncRemoteService(BeanUtil.getProperty(metaModel,"attachment"));
+      default:
+        System.out.println("do nothing");
     }
   }
 }

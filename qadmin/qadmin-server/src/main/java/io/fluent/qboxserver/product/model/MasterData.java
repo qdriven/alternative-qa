@@ -3,38 +3,36 @@ package io.fluent.qboxserver.product.model;
 import javax.persistence.*;
 
 import io.fluent.qboxserver.common.handler.SqlTagFetchHandler;
+import io.fluent.qboxserver.common.model.StatusMetaVo;
 import lombok.Data;
 import xyz.erupt.annotation.*;
-import xyz.erupt.annotation.fun.TagsFetchHandler;
 import xyz.erupt.annotation.sub_erupt.*;
 import xyz.erupt.annotation.sub_field.*;
 import xyz.erupt.annotation.sub_field.sub_edit.*;
-import xyz.erupt.jpa.model.BaseModel;
-import xyz.erupt.toolkit.handler.SqlChoiceFetchHandler;
 import xyz.erupt.upms.model.base.HyperModel;
 
 
-@Erupt(name = "主数据记录", power = @Power(importable = true, export = true))
+@Erupt(name ="系统配置数据", power = @Power(importable = true, export = true))
 @Table(name = "master_data")
 @Entity
 @Data
-public class MasterData extends HyperModel {
+public class MasterData extends StatusMetaVo {
 
   @EruptField(
     views = @View(
-      title = "种类"
+      title = "代号code"
     ),
     edit = @Edit(
-      title = "种类",
+      title = "代号code",
       type = EditType.INPUT, search = @Search, notNull = true,
       inputType = @InputType
     )
   )
-  private String category;
+  private String code;
 
 
   @EruptField(
-    views = @View(title = "种类代码"),
+    views = @View(title = "类别code"),
     edit = @Edit(
       search = @Search,
       title = "获取可选种类",
@@ -59,17 +57,6 @@ public class MasterData extends HyperModel {
   )
   private String name;
 
-  @EruptField(
-    views = @View(
-      title = "是否有效"
-    ),
-    edit = @Edit(
-      title = "是否有效",
-      type = EditType.BOOLEAN, search = @Search, notNull = true,
-      boolType = @BoolType
-    )
-  )
-  private Boolean isValid;
 
   @EruptField(
     views = @View(
